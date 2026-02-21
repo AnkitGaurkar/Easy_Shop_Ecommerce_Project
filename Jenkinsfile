@@ -5,10 +5,11 @@ pipeline {
     
     environment {
         // Update the main app image name to match the deployment file
-        DOCKER_IMAGE_NAME = 'trainwithshubham/easyshop-app'
-        DOCKER_MIGRATION_IMAGE_NAME = 'trainwithshubham/easyshop-migration'
+        DOCKER_IMAGE_NAME = 'ankitgaurkar8/easyshop-app'
+        DOCKER_MIGRATION_IMAGE_NAME = 'ankitgaurkar8/easyshop-migration'
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
-        GITHUB_CREDENTIALS = credentials('github-credentials')
+        GITHUB_CREDENTIALS = credentials('git-hub-credentials')
+        GIT_REPO = "https://github.com/AnkitGaurkar/Easy_Shop_Ecommerce_Project.git"
         GIT_BRANCH = "master"
     }
     
@@ -24,7 +25,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    clone("https://github.com/LondheShubham153/tws-e-commerce-app.git","master")
+                    clone(env.GIT_REPO, env.GIT_BRANCH)
                 }
             }
         }
@@ -113,9 +114,9 @@ pipeline {
                     update_k8s_manifests(
                         imageTag: env.DOCKER_IMAGE_TAG,
                         manifestsPath: 'kubernetes',
-                        gitCredentials: 'github-credentials',
+                        gitCredentials: 'git-hub-credentials',
                         gitUserName: 'Jenkins CI',
-                        gitUserEmail: 'shubhamnath5@gmail.com'
+                        gitUserEmail: 'ankitgaurkar8@gmail.com'
                     )
                 }
             }
