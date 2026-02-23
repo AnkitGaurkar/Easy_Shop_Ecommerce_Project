@@ -10,7 +10,7 @@ pipeline {
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
         GITHUB_CREDENTIALS = credentials('git-hub-credentials')
         GIT_REPO = "https://github.com/AnkitGaurkar/Easy_Shop_Ecommerce_Project.git"
-        GIT_BRANCH = "master"
+        GIT_BRANCH = "main"
     }
     
     stages {
